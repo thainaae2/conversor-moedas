@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Conversor de Moedas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="currencyForm" (ngSubmit)="convertCurrency()">
+    <ion-item>
+      <ion-label position="floating">Valor</ion-label>
+      <ion-input type="number" formControlName="amount"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>De</ion-label>
+      <ion-select formControlName="fromCurrency" placeholder="Selecione">
+        <ion-select-option *ngFor="let code of currencyCodes" [value]="code">{{ code }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Para</ion-label>
+      <ion-select formControlName="toCurrency" placeholder="Selecione">
+        <ion-select-option *ngFor="let code of currencyCodes" [value]="code">{{ code }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="currencyForm.invalid">Converter</ion-button>
+  </form>
+
+  <div *ngIf="convertedAmount !== null" class="result">
+    <h2>Resultado: {{ convertedAmount | number:'1.2-2' }}</h2>
+  </div>
+</ion-content>
